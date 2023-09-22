@@ -62,3 +62,19 @@ docker build .
 docker-compose build
 
 ```
+
+# Create Django project
+
+```
+docker-compose run --rm app sh -c "django-admin startproject app ."
+
+```
+
+# Run development server
+
+To start the server locally at http://127.0.0.1:8000/:
+
+```
+docker-compose up
+
+```
