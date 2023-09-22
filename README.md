@@ -16,7 +16,7 @@
 https://hub.docker.com/settings/security
 
 Generate token and keep the dialog open once it generates it
-2 - Go to github project > settings > secrets and variables > codespaces < New repository secret button. Add two secrets:
+2 - Go to github project > settings > secrets and variables > Actions < New repository secret button. Add two secrets:
 
 DOCKERHUB_USER - set to docker username
 DOCKERHUB_TOKEN - set to docker token
