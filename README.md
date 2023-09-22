@@ -1,6 +1,8 @@
 # drinks
 
-# Usage of Docker
+# Docker
+
+### Usage of Docker
 
 1 - Define Dockerfile : Contains all the operating sysem level dependencies that the project needs
 
@@ -8,7 +10,7 @@
 
 3 - Run all commands via Docker Compose
 
-# Set up Docker & Github
+### Set up Docker & Github
 
 1 - Once the github project is set up, go to Docker Hub website > Settings > Security to generate a security token. This token will be used in the project when it needs to connect to docker to do things. that way we do not have to use our creds....
 https://hub.docker.com/settings/security
@@ -19,7 +21,7 @@ Generate token and keep the dialog open once it generates it
 DOCKERHUB_USER - set to docker username
 DOCKERHUB_TOKEN - set to docker token
 
-# Docker & Django
+### Docker & Django
 
 1- Create a Dockerfile
 2- List steps for creating image
@@ -31,7 +33,7 @@ a- Name (eg:app)
 b- Port mapping
 c- Volume mappings
 
-# Using Docker Compose
+### Using Docker Compose
 
 ```
 docker-compose run --rm app sh -c "python manage.py collectstatic
@@ -47,7 +49,7 @@ app - the name of the service
 sc -c - passes in a shell command
 the rest inside quotations is the django command to run inside the container
 
-# Build an image
+### Build an image
 
 - Go to terminal. Make sure you are at the app directory:
 
@@ -63,14 +65,14 @@ docker-compose build
 
 ```
 
-# Create Django project
+### Create Django project
 
 ```
 docker-compose run --rm app sh -c "django-admin startproject app ."
 
 ```
 
-# Run development server
+### Run development server
 
 To start the server locally at http://127.0.0.1:8000/:
 
@@ -78,3 +80,11 @@ To start the server locally at http://127.0.0.1:8000/:
 docker-compose up
 
 ```
+
+# Github Actions
+
+### Setup
+
+1 - Create a config file at .github/workflows/[name].yml where name is whatever you want.
+2 - Set triggers
+3 - Add steps for running testing and linting
