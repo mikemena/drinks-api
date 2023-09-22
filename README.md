@@ -55,3 +55,10 @@ the rest inside quotations is the django command to run inside the container
 docker build .
 
 ```
+
+- Build compose
+
+```
+docker-compose build
+
+```
