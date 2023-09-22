@@ -46,3 +46,12 @@ run - will start a specific container defined in config
 app - the name of the service
 sc -c - passes in a shell command
 the rest inside quotations is the django command to run inside the container
+
+# Build an image
+
+- Go to terminal. Make sure you are at the app directory:
+
+```
+docker build .
+
+```

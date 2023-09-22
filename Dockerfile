@@ -1,5 +1,4 @@
-# If you go to docker hub, you can search for python images. 'alipine...' is the tag
-FROM python:3.9-alpine3.13
+FROM python:3.9.18-slim-bullseye
 LABEL maintainer="nym hooman"
 
 ENV PYTHONUNBUFFERED 1
