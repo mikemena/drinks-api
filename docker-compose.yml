@@ -1,16 +1,6 @@
 version: '3.9'
 
 services:
-  flake8-installer:
-    image: python:alpine3.17
-    command: sh -c "apk add --no-cache gcc musl-dev && pip install flake8"
-    volumes:
-      - ./app:/app
-    environment:
-      - DEV=true
-    depends_on:
-      - app
-
   app:
     build:
       context: .
@@ -20,8 +10,29 @@ services:
       - '8000:8000'
     volumes:
       - ./app:/app
+      - dev-static-data:/vol/web
     command: >
-      sh -c "python manage.py runserver 0.0.0.0:8000"
+      sh -c "python manage.py wait_for_db &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=devdb
+      - DB_USER=devuser
+      - DB_PASS=changeme
+      - DEBUG=1
+    depends_on:
+      - db
 
   db:
     image: postgres:13-alpine
+    volumes:
+      - dev-db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=devdb
+      - POSTGRES_USER=devuser
+      - POSTGRES_PASSWORD=changeme
+
+volumes:
+  dev-db-data:
+  dev-static-data:
