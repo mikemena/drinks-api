@@ -88,3 +88,7 @@ docker-compose up
 1 - Create a config file at .github/workflows/[name].yml where name is whatever you want.
 2 - Set triggers
 3 - Add steps for running testing and linting
+
+# Create app
+
+docker-compose run --rm app sh -c "python manage.py startapp core"
