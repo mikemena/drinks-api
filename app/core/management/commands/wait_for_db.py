@@ -16,7 +16,7 @@ class Command(BaseCommand):
         """Entrypoint for command."""
         self.stdout.write(self.style.WARNING("Waiting for database..."))
         start_time = time.time()
-        timeout = 60  # so it doesn't try indefinitely if there's a persistent issue with the database connection
+        timeout = 60
         wait_time = 1
         db_up = False
         while db_up is False and time.time() - start_time < timeout:
