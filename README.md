@@ -92,3 +92,9 @@ docker-compose up
 # Create app
 
 docker-compose run --rm app sh -c "python manage.py startapp core"
+
+# Database
+
+make migrations
+
+docker-compose run --rm app sh -c "python manage.py test"
