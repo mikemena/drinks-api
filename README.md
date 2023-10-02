@@ -97,4 +97,14 @@ docker-compose run --rm app sh -c "python manage.py startapp core"
 
 make migrations
 
-docker-compose run --rm app sh -c "python manage.py test"
+docker-compose run --rm app sh -c "python manage.py makemigrations"
+
+docker-compose run --rm app sh -c "python manage.py wait_for_db && python manage.py migrate"
+
+# List volume
+
+docker volume ls
+
+## remove volume
+
+docker volume rm [volume name]
