@@ -93,6 +93,32 @@ docker-compose up
 
 docker-compose run --rm app sh -c "python manage.py startapp core"
 
+# credentialing error
+
+Command + Shift + . to view hidden files
+Macintosh HD > Users > michaelmena > .docker > config.json
+
+delete this:
+"credsStore": "desktop",
+
+# Linting
+
+This project will uses flake8, a python lynter. The package needs to be installed then ran through Docker Compose
+
+```
+docker-compose run --rm app sh -c "flake8"
+```
+
+TIP: When working lining errors ith flake, work issues from the bottom moving up
+
+# Testing
+
+This project will use Django test suite. The tests will run through Docker Compose
+
+```
+docker-compose run --rm app sh -c "python manage.py test"
+```
+
 # Database
 
 make migrations
