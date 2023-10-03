@@ -74,7 +74,7 @@ docker-compose run --rm app sh -c "django-admin startproject app ."
 
 ### Run development server
 
-To start the server locally at http://127.0.0.1:8000/:
+To start the server locally at http://127.0.0.1:8000/ and apply any migrations that need to be applied
 
 ```
 docker-compose up
