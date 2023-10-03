@@ -14,23 +14,14 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         """Entrypoint for command."""
-        self.stdout.write(self.style.WARNING("Waiting for database..."))
-        start_time = time.time()
-        timeout = 60
-        wait_time = 1
+        self.stdout.write("Waiting for database...")
         db_up = False
-        while db_up is False and time.time() - start_time < timeout:
+        while db_up is False:
             try:
-                self.check()
+                self.check(databases=["default"])
                 db_up = True
             except (Psycopg2OpError, OperationalError):
-                self.stdout.write(
-                    self.style.ERROR("db unavailable, waiting 1 second...")
-                )
+                self.stdout.write("Database unavailable, waiting 1 second...")
+                time.sleep(1)
 
-                time.sleep(wait_time)
-                wait_time = min(
-                    wait_time * 2, 30
-                )  # Double the wait time, but cap at 30 seconds
-
-        self.stdout.write(self.style.SUCCESS("db available!"))
+        self.stdout.write(self.style.SUCCESS("Database available!"))
