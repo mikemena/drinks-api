@@ -91,8 +91,6 @@ class PrivateRecipeAPITest(TestCase):
         res = self.client.get(url)
 
         serializer = RecipeDetailSerializer(recipe)
-        print(res.data)
-        print(serializer.data)
         self.assertEqual(res.data, serializer.data)
 
 
@@ -236,9 +234,10 @@ class PrivateRecipeAPITest(TestCase):
         payload = {"tags": [{"name": "hot"}]}
         url = detail_url(recipe.id)
         res = self.client.patch(url, payload, format="json")
+        recipe.refresh_from_db()
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        new_tag = Tag.objects.create(user=self.user, name="Sweet")
+        new_tag = Tag.objects.get(user=self.user, name="hot")
         self.assertIn(new_tag, recipe.tags.all())
 
     def test_update_recipe_assign_tags(self):
@@ -249,7 +248,7 @@ class PrivateRecipeAPITest(TestCase):
 
         tag_bitter = Tag.objects.create(user=self.user, name="Bitter")
         payload = {"tags": [{"name": "Bitter"}]}
-        url = detail_url(recipe_id)
+        url = detail_url(recipe.id)
         res = self.client.patch(url, payload, format="json")
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
@@ -263,7 +262,7 @@ class PrivateRecipeAPITest(TestCase):
         recipe.tags.add(tag)
 
         payload = {"tags": []}
-        url = detail_url(recipe_id)
+        url = detail_url(recipe.id)
         res = self.client.patch(url, payload, format="json")
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
