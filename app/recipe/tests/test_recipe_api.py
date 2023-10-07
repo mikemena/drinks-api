@@ -93,8 +93,6 @@ class PrivateRecipeAPITest(TestCase):
         serializer = RecipeDetailSerializer(recipe)
         self.assertEqual(res.data, serializer.data)
 
-
-
     def test_create_recipe(self):
         """Test creating a recipe."""
         payload = {
