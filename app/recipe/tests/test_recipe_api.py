@@ -269,9 +269,9 @@ class PrivateRecipeAPITest(TestCase):
     def test_create_recipe_with_new_ingredients(self):
         """Test creating a recipe with new ingredients."""
         payload = {
-            'title': 'Cauliflower Tacos',
-            'prep_time': 60,
-            'ingredients': [{'name': 'Cauliflower'}, {'name': 'Salt'}],
+            'title': 'Vodka Drink',
+            'prep_time': 3,
+            'ingredients': [{'name': 'Vodka'}, {'name': 'Salt'}],
         }
         res = self.client.post(RECIPES_URL, payload, format='json')
 
