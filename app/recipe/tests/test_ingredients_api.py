@@ -60,7 +60,7 @@ class PrivateIngredientsApiTest(TestCase):
         """Test list of ingredients is limited to authorized user."""
         user2 = create_user(email="other@example.com", password="test123")
         Ingredient.objects.create(user=user2, name="Vodka")
-        ingredient = Ingredient.objects.create(user=self.user, name= "Gin")
+        ingredient = Ingredient.objects.create(user=self.user, name="Gin")
 
         res = self.client.get(INGREDIENT_URL)
 
