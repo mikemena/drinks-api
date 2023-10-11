@@ -91,3 +91,43 @@ class PrivateIngredientsApiTest(TestCase):
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
         ingredients = Ingredient.objects.filter(user=self.user)
         self.assertFalse(ingredients.exists())
+
+    def test_filter_ingredients_assigned_to_recipes(self):
+        """Test listing ingredients by those assigned to recipes."""
+        in1 = Ingredient.objects.create(user=self.user, name="Coke")
+        in2 = Ingredient.objects.create(user=self.user, name="Rum")
+        recipe = Recipe.objects.create(
+            title="Rum & Coke",
+            prep_time=5,
+            user=self.user,
+        )
+        recipe.ingredients.add(in1)
+
+        res = self.client.get(INGREDIENT_URL, {"assigned_only": 1})
+
+        s1 = IngredientSerializer(in1)
+        s2 = IngredientSerializer(in2)
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertIn(s1.data, res.data)
+        self.assertNotIn(s2.data, res.data)
+
+    def test_filtered_ingredients_unique(self):
+        """Test filtered ingredients returns a unique list."""
+        ing = Ingredient.objects.create(user=self.user, name="Rum")
+        Ingredient.objects.create(user=self.user, name="Orang Juice")
+        recipe1 = Recipe.objects.create(
+            title="Pain Killer",
+            prep_time=5,
+            user=self.user,
+        )
+        recipe2 = Recipe.objects.create(
+            title="Rum Runner",
+            prep_time=3,
+            user=self.user,
+        )
+        recipe1.ingredients.add(ing)
+        recipe2.ingredients.add(ing)
+
+        res = self.client.get(INGREDIENT_URL, {"assigned_only": 1})
+
+        self.assertEqual(len(res.data), 1)
