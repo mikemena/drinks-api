@@ -1,5 +1,5 @@
 # FROM python:alpine3.17
-FROM python:3.7-alpine
+FROM python:3.7
 LABEL maintainer="nym hooman"
 
 ENV PYTHONUNBUFFERED 1
